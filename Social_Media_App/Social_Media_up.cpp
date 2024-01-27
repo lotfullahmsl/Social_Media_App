@@ -23,29 +23,36 @@ struct Profile_struct {
 
 };
 
-void Creating_Profile(Profile_struct& profile);
+
+void Checking_Profile(const Profile_struct profile, string &bio_choise);
+void Creating_Profile(Profile_struct& profile, string &bio_choise);
 void Sign_up(Sign_Up_struct& sign_up_info);
 void Sign_in(Sing_in_struct& Sign_in_info, Sign_Up_struct& sign_up_info);
 
 int main() {
-
+	string bio_choise ;
 	Sign_Up_struct sign_up_info;
 	Sing_in_struct Sign_in_info;
 	Profile_struct profile;
 	char menu_choise;
+
 	cout << "\t\t\t\t\t\tWelcome to Update World!\n";
+
 	Sign_up(sign_up_info);
 	Sign_in(Sign_in_info, sign_up_info);
-	cout << "\nMain Menu \n1.Create Profile\nYour Choise: ";
+	Creating_Profile(profile, bio_choise);
+	cout << "Profile has been succesfully Created!";
+
+	cout << "\nMain Menu \n1.Check Profile\nYour Choise: ";
 	cin >> menu_choise;
 	switch (menu_choise)
 	{
 	case '1':
-		Creating_Profile(profile);
+		Checking_Profile(profile, bio_choise);
 		break;
 	}
-
 }
+
 
 void Sign_up(Sign_Up_struct& sign_up_info) {
 	while (true)
@@ -102,8 +109,9 @@ void Sign_up(Sign_Up_struct& sign_up_info) {
 
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	system("cls");
-	cout << "Log In Succsefully Please Enter Log in to youe page\n";
+	cout << "Sign Up Succsefully Please Enter Log in to youe page...\n";
 }
+
 
 void Sign_in(Sing_in_struct& Sign_in_info, Sign_Up_struct& sign_up_info) {
 	while (true)
@@ -123,7 +131,8 @@ void Sign_in(Sing_in_struct& Sign_in_info, Sign_Up_struct& sign_up_info) {
 
 		if (sign_up_info.user_name == Sign_in_info.user_name && sign_up_info.password == Sign_in_info.password) {
 			system("cls");
-			cout << "You Have Succsesfully Loged in";
+			cout << "You Have Succsesfully Loged in\n";
+			cout << "TO Continue the App you Should Creat Profile. Press Enter...";
 			break;
 		}
 	}
@@ -131,7 +140,8 @@ void Sign_in(Sing_in_struct& Sign_in_info, Sign_Up_struct& sign_up_info) {
 
 }
 
-void Creating_Profile(Profile_struct& profile) {
+
+void Creating_Profile(Profile_struct& profile, string &bio_choise) {
 
 	while (true)
 	{
@@ -145,7 +155,7 @@ void Creating_Profile(Profile_struct& profile) {
 				input_name = false;
 				cout << "Name Can Be Just Alphabets";
 				cout << endl;
-				Creating_Profile(profile);
+				Creating_Profile(profile, bio_choise);
 				break;
 			}
 
@@ -175,7 +185,6 @@ void Creating_Profile(Profile_struct& profile) {
 		}
 	}
 
-	string bio_choise;
 	cout << "Do you want to enter your bio (Y/y): ";
 	getline(cin, bio_choise);
 
@@ -187,17 +196,12 @@ void Creating_Profile(Profile_struct& profile) {
 
 	}
 
-	int amount_of_hobbies;
-	cout << "Enter amount of hobbies: ";
-	cin >> amount_of_hobbies;
-	cin.ignore();
+	
 
-	for (int i = 1; i <= amount_of_hobbies; i++) {
-		
-		cout << "Enter Your Hobbie"  << i << ": ";
+		cout << "Enter Your Hobbie: ";
 		getline(cin, profile.hobbies);
 
-	}
+	
 	
 
 
@@ -230,4 +234,21 @@ void Creating_Profile(Profile_struct& profile) {
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	system("cls");
 
+}
+
+void Checking_Profile(const Profile_struct profile, string &bio_choise) {
+
+	cout << "Your Full name is " << profile.name;
+	cout << endl;
+
+	cout << "Your Location is " << profile.loctaion_city;
+	cout << endl;
+
+	cout << "Your Year of Birth is " << profile.YOB;
+	cout << endl;
+
+	if (bio_choise == "y" || bio_choise == "Y") {
+		cout << "Your Bio is " << profile.bio;
+		cout << endl;
+	}
 }
