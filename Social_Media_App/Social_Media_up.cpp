@@ -23,116 +23,148 @@ struct Profile_struct {
 
 };
 
-
-void Checking_Profile(const Profile_struct profile, string &bio_choise);
-void Creating_Profile(Profile_struct& profile, string &bio_choise);
 void Sign_up(Sign_Up_struct& sign_up_info);
 void Sign_in(Sing_in_struct& Sign_in_info, Sign_Up_struct& sign_up_info);
+void Creating_Profile(Profile_struct& profile, string& bio_choise);
+void Checking_Profile(const Profile_struct profile, string &bio_choise);
+void Main_menu(Profile_struct& profile, string& bio_choise, string idea);
+void Editing_Profile(Profile_struct& profile, string& bio_choise);
+void Post_Array(Profile_struct& profile, string& bio_chois, string idea);
+void Watching_Post(Profile_struct& profile,  string idea);
+
 
 int main() {
-	string bio_choise ;
+	string bio_choise, idea ;
 	Sign_Up_struct sign_up_info;
 	Sing_in_struct Sign_in_info;
 	Profile_struct profile;
-	char menu_choise;
+	
 
-	cout << "\t\t\t\t\t\tWelcome to Update World!\n";
+	cout << "\t\t\t\t\t\t(Welcome to Update World)\n";
+	cout << "Please Register to Access the App.\n\n";
 
 	Sign_up(sign_up_info);
 	Sign_in(Sign_in_info, sign_up_info);
 	Creating_Profile(profile, bio_choise);
-	cout << "Profile has been succesfully Created!";
+	cout << "\nPress Enter To Continue...";
+	Main_menu(profile, bio_choise, idea);
 
-	cout << "\nMain Menu \n1.Check Profile\nYour Choise: ";
-	cin >> menu_choise;
-	switch (menu_choise)
-	{
-	case '1':
-		Checking_Profile(profile, bio_choise);
-		break;
-	}
 }
 
 
 void Sign_up(Sign_Up_struct& sign_up_info) {
-	while (true)
-	{
-		cout << "Enter Your Full Name: ";
-		getline(cin, sign_up_info.name);
+	do {
+		while (true)
+		{
+			cout << "Your Full Name: ";
+			getline(cin, sign_up_info.name);
 
-		bool input_name = true;
-		for (char letter : sign_up_info.name) {
-			if (!isalpha(letter) && !isspace(letter)) {
-				input_name = false;
-				cout << "Name Can Be Just Alphabets";
-				cout << endl;
-				break;
-			}
-
-		}
-		if (input_name) {
-			break;
-		}
-	}
-
-	cout << "Enter Your User Name: ";
-	getline(cin, sign_up_info.user_name);
-
-	cout << "Enter Your Password: ";
-	getline(cin, sign_up_info.password);
-
-	while (true)
-	{
-		cout << "Enter Your Year of Birth: ";
-		getline(cin, sign_up_info.Year_of_Birth);
-
-		bool input_Year = true;
-		for (char DOB : sign_up_info.Year_of_Birth) {
-			if (!isdigit(DOB)) {
-				input_Year = false;
-				cout << "Year Should Be Only Digits, \nThere should be no space between digits! ";
-				cout << endl;
-				break;
+			bool input_name = true;
+			for (char letter : sign_up_info.name) {
+				if (!isalpha(letter) && !isspace(letter)) {
+					input_name = false;
+					cout << "Please Enter Only Letters in the Name Field.";
+					cout << endl;
+	
+					break;
+				}
 
 			}
+			if (input_name) {
+				break;
+			}
 		}
-
-		if (input_Year) {
-			break;
+		if (sign_up_info.name.empty()) {
+			cout << "The Name Field is Required.\n";
 		}
+	} while (sign_up_info.name.empty());
 
+	do {
+		cout << "Your User Name: ";
+		getline(cin, sign_up_info.user_name);
+		if (sign_up_info.user_name.empty()) {
+			cout << "User Name Field is Required\n";
+		}
+	} while (sign_up_info.user_name.empty());
 
+	do {
+		cout << "Your Password: ";
+		getline(cin, sign_up_info.password);
+		if (sign_up_info.password.empty()) {
+			cout << "Password is Required\n";
+		}
+	} while (sign_up_info.password.empty());
+	
+	do {
+		while (true)
+		{
+			cout << "Enter Your Year of Birth: ";
+			getline(cin, sign_up_info.Year_of_Birth);
+
+			bool input_Year = true;
+			for (char DOB : sign_up_info.Year_of_Birth) {
+				if (!isdigit(DOB)) {
+					input_Year = false;
+					cout << "Please Enter the Year in Numeric Format Only. \nDigits Must Be Entered Without Spaces.";
+					cout << endl;
+					break;
+
+				}
+
+			}
+			if (sign_up_info.Year_of_Birth.empty()) {
+				cout << "Year of Birth is Required!\n";
+			}
+			if (input_Year) {
+				break;
+			}
+			
+
+		}
+	} while (sign_up_info.Year_of_Birth.empty());
+
+		cout << "Press Enter To Continue to the log in Page...";
+		cin.clear();
+
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		system("cls");
+		cout << "Sign Up Successfully! Please Log in to Your Page.\n";
+		
 	}
-
-	cout << "Press Enter To Continue to the log in Page...";
-	cin.clear();
-
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	system("cls");
-	cout << "Sign Up Succsefully Please Enter Log in to youe page...\n";
-}
-
+		
+	
 
 void Sign_in(Sing_in_struct& Sign_in_info, Sign_Up_struct& sign_up_info) {
 	while (true)
 	{
-		cout << "Enter Your User Name: ";
-		getline(cin, Sign_in_info.user_name);
 
-		cout << "Enter Your Password: ";
-		getline(cin, Sign_in_info.password);
+		do {
+			cout << "Your User Name: ";
+			getline(cin, Sign_in_info.user_name);
+			if (Sign_in_info.user_name.empty()) {
+				cout << "User Name is Required\n";
+			}
+		} while (Sign_in_info.user_name.empty());
+
+		do {
+			cout << "Your Password: ";
+			getline(cin, Sign_in_info.password);
+			if (Sign_in_info.password.empty()) {
+				cout << "Password is Required\n";
+			}
+		} while (Sign_in_info.password.empty());
 		if (sign_up_info.user_name != Sign_in_info.user_name) {
-			cout << "User Name is Not Matching\n";
+			cout << "Incorrect User Name\n";
 		}
 
 		if (sign_up_info.password != Sign_in_info.password) {
-			cout << "Password is Not Matching\n";
+			cout << "Incorrect Password\n";
 		}
 
 		if (sign_up_info.user_name == Sign_in_info.user_name && sign_up_info.password == Sign_in_info.password) {
 			system("cls");
-			cout << "You Have Succsesfully Loged in\n";
-			cout << "TO Continue the App you Should Creat Profile. Press Enter...";
+			cout << "Login Successful! Welcome to Update World.\n";
+			cout << "To Continue Using the App, Please Create Your Profile.";
 			break;
 		}
 	}
@@ -142,102 +174,119 @@ void Sign_in(Sing_in_struct& Sign_in_info, Sign_Up_struct& sign_up_info) {
 
 
 void Creating_Profile(Profile_struct& profile, string &bio_choise) {
+	do {
+		while (true)
+		{
+			
+			cout << "\nYour Full Name: ";
+			getline(cin, profile.name);
+			bool input_name = true;
+			for (char letter : profile.name) {
+				if (!isalpha(letter) && !isspace(letter)) {
+					input_name = false;
+					cout << "Please Enter Only Letters in the Name Field.";
+					cout << endl;
+					break;
+				}
 
-	while (true)
-	{
-		cin.ignore();
-		cout << "Enter Your Full Name: ";
-		getline(cin, profile.name);
-
-		bool input_name = true;
-		for (char letter : profile.name) {
-			if (!isalpha(letter) && !isspace(letter)) {
-				input_name = false;
-				cout << "Name Can Be Just Alphabets";
-				cout << endl;
-				Creating_Profile(profile, bio_choise);
+			}
+			if (input_name) {
 				break;
 			}
-
 		}
-		if (input_name) {
-			break;
+		if (profile.name.empty()) {
+			cout << "Name Field is Required\n";
+			
 		}
-	}
+	} while (profile.name.empty());
 
-	while (true)
-	{
-		cout << "Enter Your Location: ";
-		getline(cin, profile.loctaion_city);
+	do {
+		while (true)
+		{
+			cout << "Enter Your Location: ";
+			getline(cin, profile.loctaion_city);
 
-		bool input_name = true;
-		for (char letter : profile.loctaion_city) {
-			if (!isalpha(letter) && !isspace(letter)) {
-				input_name = false;
-				cout << "location Can Be Just Alphabets";
-				cout << endl;
+			bool input_name = true;
+			for (char letter : profile.loctaion_city) {
+				if (!isalpha(letter) && !isspace(letter)) {
+					input_name = false;
+					cout << "Please Enter Only Letters in the Location Field.";
+					cout << endl;
+					break;
+				}
+
+			}
+			if (input_name) {
 				break;
 			}
-
 		}
-		if (input_name) {
-			break;
+		if (profile.loctaion_city.empty()) {
+			cout << "For Your Security You Should Add Your Location\n";
 		}
-	}
+	} while (profile.loctaion_city.empty());
 
-	cout << "Do you want to enter your bio (Y/y): ";
-	getline(cin, bio_choise);
-
+	do {
+		cout << "Do you want to enter your bio (y/n): ";
+		getline(cin, bio_choise);
+		if (bio_choise.empty()) {
+			cout << "Please Press Y or any other Key!\n";
+		}
+	} while (bio_choise.empty());
 	if (bio_choise == "Y" || bio_choise == "y") {
-		cout << "Enter Your bio: ";
-		getline(cin, profile.bio);
+		do {
+			cout << "Enter Your bio: ";
+			getline(cin, profile.bio);
+			if (profile.bio.empty()) {
+				cout << "You Chosed To Add Bio. Now You Cant Change Your Decision!\n";
+			}
+		} while (profile.bio.empty());
 	}
 	else {
 
 	}
-
-	
-
+	do {
 		cout << "Enter Your Hobbie: ";
 		getline(cin, profile.hobbies);
 
-	
-	
+		if (profile.hobbies.empty()) {
+			cout << "\nFor Better Experince Please Add Your Hobbies";
+		}
 
+	} while (profile.hobbies.empty());
+	do {
+		while (true)
+		{
+			cout << "Enter Your Year of Birth: ";
+			getline(cin, profile.YOB);
 
-	while (true)
-	{
-		cout << "Enter Your Year of Birth: ";
-		getline(cin, profile.YOB);
+			bool input_Year = true;
+			for (char DOB : profile.YOB) {
+				if (!isdigit(DOB)) {
+					input_Year = false;
+					cout << "Please Enter the Year in Numeric Format Only. \nDigits Must Be Entered Without Spaces.";
+					cout << endl;
+					break;
 
-		bool input_Year = true;
-		for (char DOB : profile.YOB) {
-			if (!isdigit(DOB)) {
-				input_Year = false;
-				cout << "Year Should Be Only Digits, \nThere should be no space between digits! ";
-				cout << endl;
-				break;
-
+				}
 			}
+
+			if (input_Year) {
+				break;
+			}
+
+
 		}
-
-		if (input_Year) {
-			break;
+		if (profile.YOB.empty()) {
+			cout << "Age is Required!\n";
 		}
-
-
-	}
-
-	cout << "Profile has been created...";
+	} while (profile.YOB.empty());
+	cout << "Profile has been Succsefully Created...";
 	cin.clear();
-
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	system("cls");
 
 }
 
-void Checking_Profile(const Profile_struct profile, string &bio_choise) {
-
+void Checking_Profile(Profile_struct profile, string &bio_choise) {
+	string idea;
 	cout << "Your Full name is " << profile.name;
 	cout << endl;
 
@@ -251,4 +300,76 @@ void Checking_Profile(const Profile_struct profile, string &bio_choise) {
 		cout << "Your Bio is " << profile.bio;
 		cout << endl;
 	}
+
+	cout << "your hobbies are: " << profile.hobbies;
+	cout << endl;
+	Main_menu (profile, bio_choise, idea);
+
+}
+
+void Main_menu(Profile_struct& profile, string& bio_choise, string idea) {
+	string menu_choise;
+
+	do {
+		
+		cin.ignore();
+		cout << "\nMain Menu \n1.Check Profile\n2.Editing Profile \n3.Creat a Post \n4.Watching Post \n5.Exiting the Program \nYour Choise: ";
+		getline(cin, menu_choise);
+
+		if (menu_choise == "1") {
+			Checking_Profile(profile, bio_choise);
+			break;
+		}
+		else if (menu_choise == "2") {
+			Editing_Profile(profile, bio_choise);
+			break;
+		}
+		else if (menu_choise == "3") {
+			Post_Array(profile, bio_choise, idea);
+			break;
+		}
+		else if (menu_choise == "4") {
+			Watching_Post(profile, idea);
+			break;
+		}
+		else if (menu_choise == "5") {
+			cout << "\nProgram Exited\n";
+			exit;
+		}
+		else if (menu_choise.empty()) {
+
+			cout << "Please Make a choise\n";
+			cout << "Press Enter...";
+		}
+
+		
+	} while (menu_choise.empty());
+	
+
+}
+
+void Editing_Profile(Profile_struct& profile, string& bio_choise) {
+	string idea;
+	Creating_Profile(profile, bio_choise);
+	Main_menu(profile, bio_choise, idea);
+
+}
+
+void Post_Array(Profile_struct& profile, string& bio_chois, string idea) {
+	string bio_choise = "";
+	
+
+	cout << "Tell us what's new in your world! \nYour idea: ";
+	getline(cin, idea);
+	
+	cout << "you have did a post!";
+	Main_menu(profile, bio_choise, idea);
+	
+}
+
+void Watching_Post(Profile_struct& profile, string idea) {
+	string bio_choise = "";
+	cout << "You have Posted: " << idea << endl;
+	cout << "Author of the Post is: " << profile.name << endl;
+	Main_menu(profile, bio_choise, idea);
 }
