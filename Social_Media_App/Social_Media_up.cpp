@@ -345,6 +345,7 @@ void Main_menu(Profile_struct& profile, string& bio_choise, string idea, Sing_in
 		}
 		else if (menu_choise == "6") {
 			cout << "\nProgram Exited\n";
+
 			exit;
 		}
 		else if (menu_choise.empty()) {
